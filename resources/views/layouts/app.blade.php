@@ -26,11 +26,6 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -74,5 +69,33 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
+    <script>
+        // if no action for 30 sec logout
+        // source: https://stackoverflow.com/a/4029518
+        var idleTime = 0;
+        $(document).ready(function () {
+            var idleInterval = setInterval(timerIncrement, 1000);
+
+            $(this).mousemove(function (e) {
+                idleTime = 0;
+            });
+            $(this).keypress(function (e) {
+                idleTime = 0;
+            });
+        });
+
+        function timerIncrement() {
+            idleTime = idleTime + 1;
+            if (idleTime >= 10) { 
+                @if (Auth::check())
+                    $('#logout-form').submit();
+                @else
+                    window.location.href = 'login';
+                @endif             
+            }
+        }
+    </script>
 </body>
 </html>

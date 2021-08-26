@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class OrderFactory extends Factory
 {
@@ -23,11 +23,13 @@ class OrderFactory extends Factory
     public function definition()
     {
         $id = mt_rand(1, 5);
-
+        $date = Carbon::create(2021, 8, 1, 0, 0, 0);
+        
         return [
             'code' => 'GU-00' . $id,
             'user_id' => $id,
-            'status' => Order::$statuses[mt_rand(0, 4)]
+            'status' => Order::$statuses[mt_rand(0, 4)],
+            'created_at' => $date->addDays(mt_rand(1, 30))->format('Y-m-d H:i:s') 
         ];
     }
 
