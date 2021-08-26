@@ -89,11 +89,7 @@
         function timerIncrement() {
             idleTime = idleTime + 1;
             if (idleTime >= 10) { 
-                @if (Auth::check())
-                    $('#logout-form').submit();
-                @else
-                    window.location.href = 'login';
-                @endif             
+                $('#logout-form').submit();           
             }
         }
     </script>
